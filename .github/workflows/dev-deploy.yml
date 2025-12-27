@@ -1,0 +1,23 @@
+name: Dev Deployment
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Image
+        run: docker build -t myapp:dev ./app
+
+      - name: Run Tests
+        run: echo "Running unit tests..."
+
+      - name: Deploy to DEV
+        run: echo "Deploying to DEV environment"

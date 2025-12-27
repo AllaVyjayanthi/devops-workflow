@@ -1,0 +1,23 @@
+name: Production Deployment
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  prod:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run Final Tests
+        run: echo "Final production tests"
+
+      - name: Build Production Image
+        run: docker build -t myapp:prod ./app
+
+      - name: Deploy to Production
+        run: echo "Deploying to PROD"
+
+      - name: Notify
+        run: echo "Deployment Successful"

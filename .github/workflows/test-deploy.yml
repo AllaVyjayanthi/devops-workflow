@@ -1,23 +1,27 @@
-name: Test Deployment
+name: Test Deployment Pipeline
 
 on:
-  push:
-    branches: [test]
+  pull_request:
+    branches:
+      - test
 
 jobs:
-  test:
+  test-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: Run Tests
-        run: echo "Running staging tests"
+    - name: Run tests
+      run: echo "Running test suite"
 
-      - name: Security Scan
-        run: echo "Security scanning..."
+    - name: Build Docker image
+      run: |
+        cd app
+        docker build -t myapp:test .
 
-      - name: Build Image
-        run: docker build -t myapp:test ./app
+    - name: Security Scan
+      run: echo "Security scan placeholder"
 
-      - name: Deploy to Test
-        run: echo "Deploying to TEST environment"
+    - name: Deploy to Test
+      run: echo "Deploying to TEST environment"

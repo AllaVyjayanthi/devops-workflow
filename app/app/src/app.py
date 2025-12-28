@@ -1,14 +1,12 @@
-# add a comment
-# Dev pipeline test
-from flask import Flask
 import os
+from flask import Flask
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
     return {
-        "environment": os.getenv("ENVIRONMENT"),
+        "environment": os.getenv("ENV"),
         "debug": os.getenv("DEBUG"),
         "log_level": os.getenv("LOG_LEVEL"),
         "database": os.getenv("DB_URL")
